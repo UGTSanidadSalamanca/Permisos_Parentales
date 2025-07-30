@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Visual de Permisos Parentales en España 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA;
+        }
+        .paid-week {
+            background-color: #00A6FB;
+            color: white;
+            border-color: #0085C9;
+        }
+        .unpaid-week {
+            background-color: #E8E9EB;
+            color: #4A5568;
+            border-color: #CBD5E0;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .week-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border: 1px solid;
+            margin: 0.25rem;
+            flex-shrink: 0;
+        }
+        .week-block-sm {
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 0.75rem;
+        }
+        .highlight-stat {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+            color: #00A6FB;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">Guía de Permisos Parentales 2025</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Una visualización de los nuevos derechos de conciliación en España según el R.D.-ley 9/2025.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12 items-center card">
+            <div class="text-center md:text-left">
+                <h2 class="text-2xl font-bold mb-2">La Gran Novedad</h2>
+                <p class="text-gray-600 mb-4">La nueva ley amplía significativamente las semanas de permiso retribuido, especialmente para familias monoparentales, fomentando la corresponsabilidad.</p>
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 rounded-full mr-2" style="background-color: #00A6FB;"></div>
+                        <span>Retribuido</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 rounded-full mr-2" style="background-color: #E8E9EB;"></div>
+                        <span>No Retribuido</span>
+                    </div>
+                </div>
+            </div>
+             <div class="chart-container h-64 md:h-auto">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+        </div>
+
+        <section id="escenario-actual">
+            <h2 class="text-3xl font-bold text-center mb-8">Si tu hijo/a nace o es acogido/a hoy</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-10">Aplicación plena de la nueva ley para nacimientos a partir del 30 de julio de 2025.</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                <div class="card">
+                    <h3 class="text-2xl font-bold mb-1">Familias Biparentales</h3>
+                    <p class="text-gray-600 mb-4">(Derechos por cada progenitor/a)</p>
+
+                    <div class="text-center mb-6">
+                        <span class="highlight-stat">19</span>
+                        <p class="font-semibold text-xl">Semanas Retribuidas</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Permiso de Nacimiento y Cuidado (Retribuido)</h4>
+                        <div class="flex flex-wrap justify-center md:justify-start">
+                            <div class="w-full text-center md:text-left text-sm text-gray-500 mb-2">6 semanas obligatorias post-parto</div>
+                            <script>
+                                for(let i=0; i<6; i++) document.write('<div class="week-block paid-week">S'+(i+1)+'</div>');
+                            </script>
+                            <div class="w-full text-center md:text-left text-sm text-gray-500 my-2">11 semanas flexibles (hasta 12 meses del menor)</div>
+                             <script>
+                                for(let i=0; i<11; i++) document.write('<div class="week-block paid-week" style="border-style: dashed;">S'+(i+7)+'</div>');
+                            </script>
+                            <div class="w-full text-center md:text-left text-sm text-gray-500 my-2">2 semanas flexibles (hasta 8 años del menor)</div>
+                             <script>
+                                for(let i=0; i<2; i++) document.write('<div class="week-block paid-week" style="border-style: dotted;">S'+(i+18)+'</div>');
+                            </script>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold mb-2">Permiso Parental (No Retribuido)</h4>
+                         <p class="text-sm text-gray-500 mb-2 text-center md:text-left">8 semanas flexibles (hasta 8 años del menor)</p>
+                        <div class="flex flex-wrap justify-center md:justify-start">
+                           <script>
+                                for(let i=0; i<8; i++) document.write('<div class="week-block unpaid-week">PNR</div>');
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="text-2xl font-bold mb-1">Familias Monoparentales</h3>
+                    <p class="text-gray-600 mb-4">(Derechos para el/la progenitor/a único/a)</p>
+
+                    <div class="text-center mb-6">
+                        <span class="highlight-stat" style="color: #DC0073;">32</span>
+                        <p class="font-semibold text-xl" style="color: #DC0073;">Semanas Retribuidas</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Permiso de Nacimiento y Cuidado (Retribuido)</h4>
+                        <div class="flex flex-wrap justify-center md:justify-start">
+                            <div class="w-full text-center md:text-left text-sm text-gray-500 mb-2">6 semanas obligatorias post-parto</div>
+                            <script>
+                                for(let i=0; i<6; i++) document.write('<div class="week-block paid-week week-block-sm">S'+(i+1)+'</div>');
+                            </script>
+                            <div class="w-full text-center md:text-left text-sm text-gray-500 my-2">22 semanas flexibles (hasta 12 meses del menor)</div>
+                             <script>
+                                for(let i=0; i<22; i++) document.write('<div class="week-block paid-week week-block-sm" style="border-style: dashed;">S'+(i+7)+'</div>');
+                            </script>
+                            <div class="w-full text-center md:text-left text-sm text-gray-500 my-2">4 semanas flexibles (hasta 8 años del menor)</div>
+                             <script>
+                                for(let i=0; i<4; i++) document.write('<div class="week-block paid-week week-block-sm" style="border-style: dotted;">S'+(i+29)+'</div>');
+                            </script>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold mb-2">Permiso Parental (No Retribuido)</h4>
+                        <p class="text-sm text-gray-500 mb-2 text-center md:text-left">8 semanas flexibles (hasta 8 años del menor)</p>
+                        <div class="flex flex-wrap justify-center md:justify-start">
+                           <script>
+                                for(let i=0; i<8; i++) document.write('<div class="week-block unpaid-week week-block-sm">PNR</div>');
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="escenarios-transitorios" class="mt-16">
+            <h2 class="text-3xl font-bold text-center mb-8">Casos Transitorios: ¿Qué pasa si mi hijo/a nació antes?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <div class="card">
+                    <h3 class="text-xl font-bold mb-2">Nacimiento entre 2 ago. 2024 y 29 jul. 2025</h3>
+                    <p class="text-gray-600 text-sm mb-4">Se aplica la ley anterior más la retroactividad de las nuevas semanas flexibles.</p>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold">Biparental (por progenitor)</h4>
+                        <p><span class="font-bold text-lg text-blue-600">18 semanas</span> retribuidas en total (16 + 2 extra).</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-semibold">Monoparental</h4>
+                        <p><span class="font-bold text-lg text-pink-600">20 semanas</span> retribuidas en total (16 + 4 extra).</p>
+                    </div>
+                     <div class="mb-4">
+                        <h4 class="font-semibold">Permiso Parental No Retribuido</h4>
+                        <p><span class="font-bold text-lg text-gray-700">8 semanas</span> para todos los casos.</p>
+                    </div>
+                    <div class="mt-4 p-3 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-md">
+                        <p class="font-bold text-sm">Importante: Las semanas extra (2 o 4) solo se podrán solicitar a partir del 1 de enero de 2026.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="text-xl font-bold mb-2">Nacimiento antes del 2 de agosto de 2024</h3>
+                    <p class="text-gray-600 text-sm mb-4">Se aplica la legislación vigente en ese momento, sin las nuevas ampliaciones.</p>
+
+                    <div class="mb-4">
+                        <h4 class="font-semibold">Biparental y Monoparental</h4>
+                        <p><span class="font-bold text-lg text-blue-600">16 semanas</span> de permiso de nacimiento retribuido.</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-semibold">Permiso Parental No Retribuido</h4>
+                        <p><span class="font-bold text-lg text-gray-700">8 semanas</span> (si el RDL 5/2023 ya estaba en vigor).</p>
+                    </div>
+                     <div class="mt-4 p-3 bg-gray-100 border-l-4 border-gray-500 text-gray-700 rounded-md">
+                        <p class="font-bold text-sm">Las nuevas semanas retribuidas flexibles del R.D.-ley 9/2025 no son aplicables en este caso.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer class="text-center mt-16 text-gray-500 text-sm">
+            <p>Fuente: Real Decreto-ley 9/2025, de 29 de julio. Publicado en BOE 30/07/2025.</p>
+            <p>Esta infografía es una guía visual y no sustituye el asesoramiento legal profesional.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const tooltipCallback = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
+        new Chart(comparisonCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Familia Biparental', 'Familia Monoparental'],
+                datasets: [{
+                    label: 'Antes de la Ley',
+                    data: [16, 16],
+                    backgroundColor: '#F5B700',
+                    borderColor: '#D49E00',
+                    borderWidth: 1
+                }, {
+                    label: 'Nueva Ley (2025)',
+                    data: [19, 32],
+                    backgroundColor: '#00A6FB',
+                    borderColor: '#0085C9',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                ...tooltipCallback,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Semanas Totales Retribuidas'
+                        }
+                    }
+                },
+                plugins: {
+                    ...tooltipCallback.plugins,
+                    title: {
+                        display: true,
+                        text: 'Comparativa de Semanas Retribuidas (Antes vs. Ahora)',
+                        font: {
+                            size: 16
+                        }
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
