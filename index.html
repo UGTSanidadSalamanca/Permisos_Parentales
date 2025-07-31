@@ -113,7 +113,7 @@
                 <span>UGT</span>
             </div>
             <div class="text-center md:text-left">
-                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-1">UGT Sanidad Salamanca // Guía de Permisos Parentales 2025</h1>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-1">UGT Sanidad Salamanca Te Ofrece La Guía de Permisos Parentales 2025</h1>
                 <p class="text-lg text-gray-600 max-w-3xl">Una visualización de los nuevos derechos de conciliación en España según el R.D.-ley 9/2025.</p>
             </div>
         </header>
@@ -145,6 +145,19 @@
                     <div class="mb-4">
                         <label for="birthDate" class="block text-sm font-medium text-gray-700 mb-2">Introduce la fecha de nacimiento o acogida del menor:</label>
                         <input type="date" id="birthDate" name="birthDate" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Selecciona el tipo de familia:</label>
+                        <div class="flex items-center space-x-6">
+                            <div class="flex items-center">
+                                <input id="biparental" name="familyType" type="radio" value="biparental" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500" checked>
+                                <label for="biparental" class="ml-2 block text-sm text-gray-900">Biparental</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="monoparental" name="familyType" type="radio" value="monoparental" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                <label for="monoparental" class="ml-2 block text-sm text-gray-900">Monoparental</label>
+                            </div>
+                        </div>
                     </div>
                     <button id="calculateButton" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-700 focus:bg-blue-800 transition-all duration-300 ease-in-out">
                         Calcular Mis Derechos
@@ -384,36 +397,47 @@
 
         calculateButton.addEventListener('click', () => {
             const dateValue = birthDateInput.value;
+            const selectedFamilyType = document.querySelector('input[name="familyType"]:checked');
+
             if (!dateValue) {
                 resultsDiv.innerHTML = `<p class="text-red-600 font-semibold text-center">Por favor, selecciona una fecha.</p>`;
                 return;
             }
-
+            
+            const familyType = selectedFamilyType.value;
             const selectedDate = new Date(dateValue + 'T00:00:00');
             let resultHTML = '';
 
             if (selectedDate >= NEW_LAW_START_DATE) {
+                const familyText = familyType === 'monoparental' ? 'Monoparental' : 'Biparental';
+                const specificListItem = familyType === 'monoparental' 
+                    ? `<li><strong>Familia Monoparental:</strong> <span class="font-bold">32 semanas retribuidas</span>.</li>`
+                    : `<li><strong>Familia Biparental:</strong> <span class="font-bold">19 semanas retribuidas</span> por progenitor.</li>`;
+
                 resultHTML = `
                     <div class="p-6 bg-green-50 border-l-4 border-green-500 rounded-r-lg text-left">
                         <h3 class="font-bold text-xl text-green-800 mb-2">Régimen Aplicable: Nueva Ley Completa</h3>
-                        <p class="text-green-700 space-y-2">Te corresponde la aplicación íntegra de la nueva ley de permisos. Tus derechos principales son:</p>
+                        <p class="text-green-700 space-y-2">Para una familia <strong>${familyText}</strong>, te corresponde la aplicación íntegra de la nueva ley.</p>
                         <ul class="list-disc list-inside mt-4 text-green-700 space-y-1">
-                            <li><strong>Familia Biparental:</strong> <span class="font-bold">19 semanas retribuidas</span> por progenitor.</li>
-                            <li><strong>Familia Monoparental:</strong> <span class="font-bold">32 semanas retribuidas</span>.</li>
-                            <li><strong>Adicional:</strong> 8 semanas de permiso parental no retribuido para ambos casos.</li>
+                            ${specificListItem}
+                            <li><strong>Adicional:</strong> 8 semanas de permiso parental no retribuido.</li>
                         </ul>
                         <p class="text-xs text-gray-600 mt-4">Consulta la sección <a href="#escenario-actual" class="underline font-semibold hover:text-blue-600">"Si tu hijo/a nace o es acogido/a hoy"</a> para ver el desglose completo.</p>
                     </div>
                 `;
             } else if (selectedDate >= TRANSITORY_START_DATE && selectedDate < NEW_LAW_START_DATE) {
+                const familyText = familyType === 'monoparental' ? 'Monoparental' : 'Biparental';
+                const specificListItem = familyType === 'monoparental'
+                    ? `<li><strong>Familia Monoparental:</strong> <span class="font-bold">20 semanas retribuidas</span> (16 + 4 extra).</li>`
+                    : `<li><strong>Familia Biparental:</strong> <span class="font-bold">18 semanas retribuidas</span> (16 + 2 extra) por progenitor.</li>`;
+
                 resultHTML = `
                     <div class="p-6 bg-yellow-50 border-l-4 border-yellow-500 rounded-r-lg text-left">
                         <h3 class="font-bold text-xl text-yellow-800 mb-2">Régimen Aplicable: Caso Transitorio</h3>
-                        <p class="text-yellow-700 space-y-2">Estás en el periodo transitorio. Se aplica la ley anterior con retroactividad de las nuevas semanas flexibles.</p>
+                        <p class="text-yellow-700 space-y-2">Para una familia <strong>${familyText}</strong>, estás en el periodo transitorio. Se aplica la ley anterior con retroactividad.</p>
                         <ul class="list-disc list-inside mt-4 text-yellow-700 space-y-1">
-                            <li><strong>Familia Biparental:</strong> <span class="font-bold">18 semanas retribuidas</span> (16 + 2 extra).</li>
-                            <li><strong>Familia Monoparental:</strong> <span class="font-bold">20 semanas retribuidas</span> (16 + 4 extra).</li>
-                            <li class="font-bold text-red-700">Importante: Las semanas extra (2 o 4) solo se pueden solicitar a partir del <strong>1 de enero de 2026</strong>.</li>
+                            ${specificListItem}
+                            <li class="font-bold text-red-700">Importante: Las semanas extra solo se pueden solicitar a partir del <strong>1 de enero de 2026</strong>.</li>
                         </ul>
                          <p class="text-xs text-gray-600 mt-4">Consulta la sección <a href="#escenarios-transitorios" class="underline font-semibold hover:text-blue-600">"Casos Transitorios"</a> para más detalles.</p>
                     </div>
